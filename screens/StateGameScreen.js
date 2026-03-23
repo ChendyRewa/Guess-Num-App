@@ -6,8 +6,12 @@ function StateGameScreen() {
     <View style={styles.inputContainer}>
       <TextInput style={styles.input} maxLength={2} inputMode="numeric" />
       <View style={styles.buttonContainer}>
-        <PrimaryButton>Reset</PrimaryButton>
-        <PrimaryButton>Confirm</PrimaryButton>
+        <View style={styles.buttonsView}>
+          <PrimaryButton>Reset</PrimaryButton>
+        </View>
+        <View style={styles.buttonsView}>
+          <PrimaryButton>Confirm</PrimaryButton>
+        </View>
       </View>
     </View>
   );
@@ -45,5 +49,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 16,
     marginTop: 16,
+    flex: 1,
+  },
+  buttonsView: {
+    flex: 1,
   },
 });

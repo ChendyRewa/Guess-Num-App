@@ -5,7 +5,10 @@ function PrimaryButton({ children }) {
     console.log("Button Pressed");
   };
   return (
-    <Pressable onPress={onPressHandler}>
+    <Pressable
+      onPress={onPressHandler}
+      style={({ pressed }) => pressed && styles.pressed}
+    >
       <View style={styles.buttonContainer}>
         <Text style={styles.buttonText}>{children}</Text>
       </View>
@@ -28,5 +31,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
+  },
+  pressed: {
+    opacity: 0.75,
   },
 });
