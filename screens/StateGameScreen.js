@@ -1,29 +1,43 @@
-import { StyleSheet, TextInput, View,Alert } from "react-native";
-import PrimaryButton from "../components/PrimaryButton";
-import {useState} from "react";
+import { useState } from "react";
+import { Alert, StyleSheet, TextInput, View } from "react-native";
+import PrimaryButton from "../components/UI/PrimaryButton";
+import Colors from "../constants/colors";
 
-function StateGameScreen() {
+function StateGameScreen({ onStartGame, setUserNumber }) {
   const [userInput, setUserInput] = useState("");
 
- function inputHandler(enteredText) {
-  setUserInput(enteredText);
- }
-
- function resetInputHandler() {  setUserInput("");
- }  
- function confirmInputHandler() {
-  const chosenNumber = parseInt(userInput);
-  if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
-    // Show an alert or error message
-    Alert.alert("Invalid number!", "Please enter a number between 1 and 99.", [{ text: "Okay", style: "destructive", onPress: resetInputHandler }]);
-    return;
+  function inputHandler(enteredText) {
+    setUserInput(enteredText);
   }
-  // Proceed with the valid chosen number
- }
+
+  function resetInputHandler() {
+    setUserInput("");
+  }
+  function confirmInputHandler() {
+    const chosenNumber = parseInt(userInput);
+    if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+      // Show an alert or error message
+      Alert.alert(
+        "Invalid number!",
+        "Please enter a number between 1 and 99.",
+        [{ text: "Okay", style: "destructive", onPress: resetInputHandler }],
+      );
+      return;
+    }
+    onStartGame(true);
+    setUserNumber(chosenNumber);
+    // Proceed with the valid chosen number
+  }
 
   return (
     <View style={styles.inputContainer}>
-      <TextInput style={styles.input} maxLength={2} keyboardType="number-pad" value={userInput} onChangeText={inputHandler} />
+      <TextInput
+        style={styles.input}
+        maxLength={2}
+        keyboardType="number-pad"
+        value={userInput}
+        onChangeText={inputHandler}
+      />
       <View style={styles.buttonContainer}>
         <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
         <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
@@ -36,37 +50,33 @@ export default StateGameScreen;
 
 const styles = StyleSheet.create({
   inputContainer: {
-    backgroundColor: "#3f031cff",
+    backgroundColor: Colors.bgPrimary,
     padding: 16,
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 100,
     marginHorizontal: 16,
-    shadowColor: "green",
+    shadowColor: Colors.shadowColor,
     shadowOffset: { width: 8, height: 8 },
     shadowRadius: 6,
     shadowOpacity: 1,
   },
   input: {
-    color: "yellow",
+    color: Colors.textAccent,
     fontSize: 32,
     fontWeight: "bold",
     textAlign: "center",
-    backgroundColor: "#720633",
+    backgroundColor: Colors.bgSecondary,
     width: "100%",
     height: 50,
     borderRadius: 8,
     borderBottomWidth: 2,
-    borderBottomColor: "yellow",
+    borderBottomColor: Colors.textAccent,
   },
   buttonContainer: {
     flexDirection: "row",
     gap: 16,
     marginTop: 16,
-    flex: 1,
-  },
-  buttonsView: {
-    flex: 1,
   },
 });
